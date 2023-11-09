@@ -2,8 +2,9 @@ import { tokenize } from "./tokenize.mjs";
 import { prepareTextNetwork } from "./prepareTextNetwork.mjs";
 import { plotTextNetwork } from "./plotTextNetwork.mjs";
 
-import construcao from "./construcao.json" assert { type: "json" };
-import lula from "./lula.json" assert { type: "json" };
+import construcao from "../test-data/construcao.json" assert { type: "json" };
+import lula from "../test-data/lula.json" assert { type: "json" };
+import casmurro from "../test-data/casmurro.json" assert { type: "json" };
 
 textNetwork(construcao);
 

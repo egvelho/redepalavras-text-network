@@ -1,6 +1,6 @@
 import { bigram, trigram, nGram } from "n-gram";
-import replacements from "./replacements.json" assert { type: "json" };
-import stopwords from "./stopwords.json" assert { type: "json" };
+import replacements from "./data/replacements.json" assert { type: "json" };
+import stopwords from "./data/stopwords.json" assert { type: "json" };
 
 export function tokenize(rawTexts) {
   const texts = rawTexts.map((text) =>
