@@ -11,7 +11,7 @@ export function prepareTextNetwork(
     (tokenA, tokenB) => tokenA - tokenB
   );
   const [defaultMinCount] = tokenFrequenciesList.slice(
-    Math.floor(tokenFrequenciesList.length * 0.2)
+    Math.floor(tokenFrequenciesList.length * 0.05)
   );
   const [defaultMaxCount] = tokenFrequenciesList.slice(
     Math.floor(tokenFrequenciesList.length * 0.95)
