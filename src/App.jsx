@@ -1,11 +1,60 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { textNetwork } from "./textNetwork/textNetwork";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { Canvg } from "canvg";
+
+function downloadSvgAsPng(name) {
+  const svgNode = document.querySelector("#text-network");
+  const svgString = new XMLSerializer().serializeToString(svgNode);
+  const svgBlob = new Blob([svgString], {
+    type: "image/svg+xml;charset=utf-8",
+  });
+
+  const DOMURL = window.URL || window.webkitURL || window;
+  const url = DOMURL.createObjectURL(svgBlob);
+
+  const image = new Image();
+  image.width = svgNode.width.baseVal.value;
+  image.height = svgNode.height.baseVal.value;
+  image.src = url;
+  image.onload = function () {
+    const canvasEl = document.createElement("canvas");
+    canvasEl.id = "canvas";
+    document.body.appendChild(canvasEl);
+    const canvas = document.getElementById("canvas");
+    canvas.width = image.width;
+    canvas.height = image.height;
+
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(image, 0, 0);
+    DOMURL.revokeObjectURL(url);
+
+    const imgURI = canvas
+      .toDataURL("image/png")
+      .replace("image/png", "image/octet-stream");
+    triggerDownload(imgURI, name);
+    document.body.removeChild(canvasEl);
+  };
+}
+
+function triggerDownload(imgURI, name) {
+  const a = document.createElement("a");
+  a.download = name;
+  a.target = "_blank";
+  a.href = imgURI;
+
+  a.dispatchEvent(
+    new MouseEvent("click", {
+      view: window,
+      bubbles: false,
+      cancelable: true,
+    })
+  );
+}
 
 function saveSvg(svg, name) {
   const svgData = svg.outerHTML;
-  console.log(svgData);
   const preface = '<?xml version="1.0" standalone="no"?>\r\n';
   const svgBlob = new Blob([preface, svgData], {
     type: "image/svg+xml;charset=utf-8",
@@ -39,6 +88,8 @@ export function App() {
     const texts = text.split("\n");
     const chart = await textNetwork(texts);
     saveSvg(chart, "text-network.svg");
+    downloadSvgAsPng("text-network.png");
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     document.querySelector("body").removeChild(chart);
     setIsLoading(false);
   }

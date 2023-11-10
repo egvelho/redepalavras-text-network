@@ -72,7 +72,7 @@ export async function plotTextNetwork({
       .text((d) => d.weight);
   }
 
-  await new Promise((resolve) => setTimeout(resolve, 1000 * 10));
+  await new Promise((resolve) => setTimeout(resolve, 1000 * 30));
   simulation.stop();
 
   const chart = Object.assign(svg.node(), { scales: { color } });
