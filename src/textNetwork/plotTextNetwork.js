@@ -9,6 +9,7 @@ export async function plotTextNetwork({
   strength = -50,
   strokeColor = "#ccc",
   strokeOpacity = 1,
+  svgId = "text-network",
 }) {
   let community = louvain().nodes(nodesIds).edges(edges);
   let result = community();
@@ -25,7 +26,7 @@ export async function plotTextNetwork({
   const svg = d3
     .create("svg")
     .attr("xmlns", "http://www.w3.org/2000/svg")
-    .attr("id", "text-network");
+    .attr("id", svgId);
 
   svg.append("g").attr("class", "links");
   svg.append("g").attr("class", "nodes").append("title");
@@ -75,6 +76,17 @@ export async function plotTextNetwork({
   simulation.stop();
 
   const chart = Object.assign(svg.node(), { scales: { color } });
+  document.querySelector("body").appendChild(chart);
+  const bb = chart.getBBox();
+  const width = bb.width;
+  const height = bb.height;
+  const x = bb.x;
+  const y = bb.y;
+  svg.attr("viewBox", `${x} ${y} ${width} ${height}`);
+  svg.attr("width", width);
+  svg.attr("height", height);
+
+  return chart;
 
   function ticked() {
     updateLinks();
