@@ -12,7 +12,6 @@
   "author": "",
   "license": "GPL-3.0",
   "dependencies": {
-    "canvg": "^4.0.1",
     "d3": "^7.6.1",
     "louvain": "^1.2.0",
     "n-gram": "^2.0.2",
