@@ -73,14 +73,14 @@ export function App() {
         <p className="text-sm text-slate-100">
           Gostou da ferramenta? Ficou com alguma dúvida? Entre em contato por{" "}
           <a
-            href="https://eduardovelho.com"
+            href="https://eduardavelho.com"
             className="underline text-orange-400 hover:text-orange-500"
           >
             esse link
           </a>
           .
           <br />
-          <br /> Eduardo Velho
+          <br /> Eduarda Velho
         </p>
       </main>
     </div>
